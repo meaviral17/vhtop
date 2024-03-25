@@ -1,9 +1,15 @@
-import React from 'react'
-
+import React from "react";
+import { Button } from "@/components/ui/button";
+import AppbarNoLogin from "@/components/Appbar/AppbarNoLogin";
+import Heading from "@/components/Heading";
 const page = () => {
   return (
-    <div className='text-8xl' >page</div>
-  )
-}
+    <div className=" ">
+      {" "}
+      <AppbarNoLogin></AppbarNoLogin>
+      <Heading></Heading>
+    </div>
+  );
+};
 
-export default page
+export default page;
