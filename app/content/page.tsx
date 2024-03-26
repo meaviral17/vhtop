@@ -1,13 +1,13 @@
-import Spotlight from '@/components/Spotlight/Spotlight'
-import React from 'react'
-
+import Spotlight from "@/components/Spotlight/Spotlight";
+import React from "react";
+import AppbarLogin from "@/components/Appbar/AppbarLogin";
 const page = () => {
   return (
     <div>
-      {/* make spotlight a component and then import it here ,add dummy data and follow the vtop ui  */}
-      <Spotlight/>
+      <AppbarLogin></AppbarLogin>
+      <Spotlight />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
