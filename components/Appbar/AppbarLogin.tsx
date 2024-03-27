@@ -3,7 +3,7 @@ import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const AppbarLogin = () => {
   return (
-    <div className="sticky top-0">
+    <div className="sticky top-0 z-10">
       <div className="h-14 bg-primary   flex items-center justify-between p-2 text-white font-medium">
         <div className="flex gap-2">
           <div>logo</div>
