@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import React from "react";
 import AppbarLogin from "@/components/Appbar/AppbarLogin";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import {
