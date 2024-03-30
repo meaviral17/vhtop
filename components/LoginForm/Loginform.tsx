@@ -37,19 +37,17 @@ export default function Login() {
             Forget Password?
           </Link>
           <div className="mt-2">
-            <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+            <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-primary rounded-md hover:bg-primary-600 focus:outline-none focus:bg-gray-600">
               Login
             </button>
           </div>
         </form>
-
-        <p className="mt-4 text-sm text-center text-gray-700">
-          Don't have an account?{" "}
+        <p className="mt-4 text-sm text-right text-white">
           <Link
-            href="/signup"
-            className="font-medium text-blue-600 hover:underline"
+            href="/forget"
+            className="text-xs text-blue-600 hover:underline"
           >
-            Sign up
+            Forget Password?
           </Link>
         </p>
       </div>
