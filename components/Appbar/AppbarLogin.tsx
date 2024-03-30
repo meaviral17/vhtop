@@ -11,8 +11,8 @@ const AppbarLogin = () => {
           <div>
             <Image src={vitlogo} alt="Logo" width={55} height={40} />
           </div>
-          <div>VIT </div>
-          <div>(Chennai Campus)</div>
+          <div className="text-white text-3xl font-bold px-2 font-serif">VIT</div>
+          <div className="text-white px-2 font-serif">(Chennai Campus)</div>
         </div>
         <div className="flex items-center justify-center gap-2 m-2 ">
           <Avatar>
