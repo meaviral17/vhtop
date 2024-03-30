@@ -6,10 +6,10 @@ const AppbarNoLogin = () => {
   return (
     <div className="h-14 bg-primary flex items-center justify-start p-2">
           <div>
-            <Image src={vitlogo} alt="Logo" width={55} height={40} />
+            <Image className="px-1" src={vitlogo} alt="Logo" width={60} height={40} />
           </div>
-          <div className="text-white text-3xl font-bold px-2 font-serif">VIT</div>
-          <div className="text-white px-2 font-serif">(Chennai Campus)</div>
+          <div className="text-white text-3xl font-bold px-1 font-serif">VIT</div>
+          <div className="text-white px-1 font-serif">(Chennai Campus)</div>
     </div>
   );
 };

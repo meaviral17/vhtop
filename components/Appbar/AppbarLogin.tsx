@@ -9,10 +9,10 @@ const AppbarLogin = () => {
       <div className="h-14 bg-primary   flex items-center justify-between p-2 text-white font-medium">
         <div className="flex gap-2">
           <div>
-            <Image src={vitlogo} alt="Logo" width={55} height={40} />
+            <Image className="px-1" src={vitlogo} alt="Logo" width={60} height={40} />
           </div>
-          <div className="text-white text-3xl font-bold px-2 font-serif">VIT</div>
-          <div className="text-white px-2 font-serif">(Chennai Campus)</div>
+          <div className="text-white text-3xl font-bold px-1 font-serif">VIT</div>
+          <div className="text-white px-1 font-serif">(Chennai Campus)</div>
         </div>
         <div className="flex items-center justify-center gap-2 m-2 ">
           <Avatar>
