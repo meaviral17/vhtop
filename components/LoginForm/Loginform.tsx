@@ -4,7 +4,7 @@ export default function Login() {
   return (
 <div className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden">
   <div className="w-full p-6 bg-white rounded-md shadow-lg lg:max-w-xl mb-40">
-        <div className="w-full h-1 bg-primary mb-5"></div>
+        <div className="w-full h-1 bg-primary mb-10"></div>
         <h1 className=" font-bold text-center text-primary text-4xl ">VHTOP Login</h1>
         <form className="mt-6">
           <div className="mb-4">
