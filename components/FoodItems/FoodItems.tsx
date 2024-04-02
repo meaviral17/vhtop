@@ -1,3 +1,4 @@
+// FoodItems.tsx
 import React from "react";
 import {
   Card,
@@ -7,21 +8,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import paneerbuttermasaladosa from "@/assets/paneer-butter-masala-dosa.png";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
-const FoodItems = () => {
-  const foodItems = [
-    { title: "Paneer Masala Dosa", price: "Rs. 60/-" },
-    { title: "Paneer Masala Dosa", price: "Rs. 60/-" },
-    { title: "Paneer Masala Dosa", price: "Rs. 60/-" },
-    { title: "Paneer Masala Dosa", price: "Rs. 60/-" },
-    { title: "Paneer Masala Dosa", price: "Rs. 60/-" },
-    { title: "Paneer Masala Dosa", price: "Rs. 60/-" },
-    { title: "Paneer Masala Dosa", price: "Rs. 60/-" },
-    { title: "Paneer Masala Dosa", price: "Rs. 60/-" },
-  ];
+interface FoodItem {
+  title: string;
+  price: string;
+  image: StaticImageData; // StaticImageData type for Next.js Image component
+}
 
+const FoodItems: React.FC<{ foodItems: FoodItem[] }> = ({ foodItems }) => {
   return (
     <div className="m-4">
       <div className="text-2xl">Veg Items</div>
@@ -35,8 +30,8 @@ const FoodItems = () => {
             </CardHeader>
             <CardContent className="flex items-center justify-center m-0 p-0">
               <Image
-                src={paneerbuttermasaladosa}
-                alt="paneerbuttermasaladosa"
+                src={item.image}
+                alt={item.title}
                 height={150}
                 width={150}
                 className="rounded-md"
