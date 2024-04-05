@@ -1,11 +1,30 @@
+"use client"
+import createUserAndStoreEmail from "@/app/Hooks/SignIn";
 import Link from "next/link";
+import { useState, ChangeEvent } from "react";
 
 export default function Login() {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
+  const usercreate = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    const user = await createUserAndStoreEmail();
+  };
+
   return (
-<div className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden">
-  <div className="w-full p-6 bg-white rounded-md shadow-lg lg:max-w-xl mb-40">
+    <div className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden">
+      <div className="w-full p-6 bg-white rounded-md shadow-lg lg:max-w-xl mb-40">
         <div className="w-full h-1 bg-primary mb-10"></div>
-        <h1 className=" font-bold text-center text-black text-3xl ">VHTOP Login</h1>
+        <h1 className="font-bold text-center text-black text-3xl">VHTOP Login</h1>
         <form className="mt-6">
           <div className="mb-4">
             <label
@@ -16,6 +35,9 @@ export default function Login() {
             </label>
             <input
               type="email"
+              id="email"
+              value={email}
+              onChange={handleEmailChange}
               className="block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
@@ -28,11 +50,14 @@ export default function Login() {
             </label>
             <input
               type="password"
+              id="password"
+              value={password}
+              onChange={handlePasswordChange}
               className="block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
           <div className="mt-2">
-          <button className="w-full px-4 py-2 tracking-wide text-primary transition-colors duration-200 transform bg-primary text-white rounded-md hover:bg-primary hover:text-white focus:outline-none focus:bg-primary focus:text-white">
+            <button type="submit" className="w-full px-4 py-2 tracking-wide text-primary transition-colors duration-200 transform bg-primary text-white rounded-md hover:bg-primary hover:text-white focus:outline-none focus:bg-primary focus:text-white" onClick={(event) => usercreate(event)}>
               Login
             </button>
           </div>
@@ -46,7 +71,7 @@ export default function Login() {
           </Link>
         </p>
         <p className="mt-2 text-sm text-right text-white">
-        <Link
+          <Link
             href="/"
             className="text-xs text-green-600 hover:underline"
           >
