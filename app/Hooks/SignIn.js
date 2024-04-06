@@ -1,5 +1,10 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup, deleteUser } from "firebase/auth";
-import { getFirestore, collection, doc, setDoc } from "firebase/firestore";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+  deleteUser,
+} from "firebase/auth";
+import { getFirestore, collection, doc, setDoc,getDoc } from "firebase/firestore";
 import app from "@/firebase.config";
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -16,14 +21,20 @@ const createUserAndStoreEmail = async () => {
   try {
     // Use the authentication provider to sign in with Google
     const result = await signInWithPopup(auth, provider);
-    
+
     // Extract user information
     const user = result.user;
     const email = user.email;
     const name = user.displayName.split(" ");
-    const fullname = name[0] + " " + name[1];
-    const reg = name[2];
-
+    let fullname = "";
+    for (let i = 0; i < name.length - 1; i++) {
+      if (i == name.length - 1) {
+        fullname += name[i];
+      } else {
+        fullname += name[i] + " ";
+      }
+    }
+    const reg = name[name.length - 1];
     // Check if the email is valid
     if (isValidEmail(email)) {
       // Store email in Firestore in the "users" collection using email as the document ID
@@ -37,16 +48,18 @@ const createUserAndStoreEmail = async () => {
         mess: "Veg",
         contact: "9927084882",
       });
-
+      const userSnapshot = await getDoc(userDocRef);
+      const storedUser = userSnapshot.data();
       console.log("User created and email stored successfully!");
-      return true;
+      return storedUser;
     } else {
       console.log("Invalid email domain. User not created.");
       deleteUser(user);
-      return false;
+      return null;
     }
   } catch (error) {
     console.error("Error creating user:", error.message);
+    return null;
   }
 };
 

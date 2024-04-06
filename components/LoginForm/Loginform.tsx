@@ -2,11 +2,12 @@
 import createUserAndStoreEmail from "@/app/Hooks/SignIn";
 import Link from "next/link";
 import { useState, ChangeEvent } from "react";
-
+import useUserStore from "@/app/store/store"
 export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
+  const setUser = useUserStore((state) => state.setUser);
+  const use=useUserStore((state)=>state.user);
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
@@ -18,6 +19,10 @@ export default function Login() {
   const usercreate = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     const user = await createUserAndStoreEmail();
+    if (user){
+      setUser(user);
+    }
+    console.log(use);
   };
 
   return (
