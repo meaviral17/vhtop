@@ -3,12 +3,17 @@ import {
   getAuth,
   signInWithPopup,
   deleteUser,
+  setPersistence,
+  browserSessionPersistence // Choose the persistence type you want, here we're using browser session persistence
 } from "firebase/auth";
 import { getFirestore, collection, doc, setDoc,getDoc } from "firebase/firestore";
 import app from "@/firebase.config";
 const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
+
+// Set persistence for authentication
+setPersistence(auth, browserSessionPersistence);
 
 // Function to check if the email is from "vitstudent.ac.in"
 const isValidEmail = (email) => {

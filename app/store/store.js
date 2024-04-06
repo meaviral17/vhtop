@@ -1,4 +1,4 @@
-import {create} from 'zustand';
+import { create } from 'zustand';
 
 // Define the initial user object with default values
 const initialUser = {
@@ -13,7 +13,17 @@ const initialUser = {
 
 const useUserStore = create((set) => ({
   user: initialUser,
-  setUser: (user) => set({ user }),
+  setUser: (user) => {
+    set({ user });
+    localStorage.setItem('user', JSON.stringify(user)); // Store user data in localStorage
+  },
 }));
+
+// Retrieve user data from localStorage when initializing the store
+const savedUser = localStorage.getItem('user');
+if (savedUser) {
+  const parsedUser = JSON.parse(savedUser);
+  useUserStore.setState({ user: parsedUser });
+}
 
 export default useUserStore;
