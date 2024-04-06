@@ -4,7 +4,7 @@ import {
   signInWithPopup,
   deleteUser,
 } from "firebase/auth";
-import { getFirestore, collection, doc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, doc, setDoc,getDoc } from "firebase/firestore";
 import app from "@/firebase.config";
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -48,16 +48,18 @@ const createUserAndStoreEmail = async () => {
         mess: "Veg",
         contact: "9927084882",
       });
-
+      const userSnapshot = await getDoc(userDocRef);
+      const storedUser = userSnapshot.data();
       console.log("User created and email stored successfully!");
-      return true;
+      return storedUser;
     } else {
       console.log("Invalid email domain. User not created.");
       deleteUser(user);
-      return false;
+      return null;
     }
   } catch (error) {
     console.error("Error creating user:", error.message);
+    return null;
   }
 };
 
