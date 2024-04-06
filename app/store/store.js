@@ -24,10 +24,10 @@ const useUserStore = create((set) => ({
 // Retrieve user data from localStorage when initializing the store
 if  (typeof window !== 'undefined'){
   const savedUser = localStorage.getItem('user');
-}
-if (savedUser) {
-  const parsedUser = JSON.parse(savedUser);
-  useUserStore.setState({ user: parsedUser });
+  if (savedUser) {
+    const parsedUser = JSON.parse(savedUser);
+    useUserStore.setState({ user: parsedUser });
+  }
 }
 
 export default useUserStore;
