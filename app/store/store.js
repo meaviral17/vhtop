@@ -15,12 +15,16 @@ const useUserStore = create((set) => ({
   user: initialUser,
   setUser: (user) => {
     set({ user });
-    localStorage.setItem('user', JSON.stringify(user)); // Store user data in localStorage
+    if (typeof window !== 'undefined'){
+      localStorage.setItem('user', JSON.stringify(user)); // Store user data in localStorage
+    }
   },
 }));
 
 // Retrieve user data from localStorage when initializing the store
-const savedUser = localStorage.getItem('user');
+if  (typeof window !== 'undefined'){
+  const savedUser = localStorage.getItem('user');
+}
 if (savedUser) {
   const parsedUser = JSON.parse(savedUser);
   useUserStore.setState({ user: parsedUser });
