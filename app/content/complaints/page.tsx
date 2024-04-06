@@ -3,6 +3,7 @@ import AppbarLogin from "@/components/Appbar/AppbarLogin";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 function InputDemo() {
   return (
     <Input type="text" placeholder="Enter Ticket Number" className="w-min" />
@@ -32,7 +33,10 @@ const page = () => {
                 Create/View Tickets
               </div>
               <div className="w-full sm:w-3/4 p-3 border border-stone-300">
-                <Button className="m-2">Create Tickets</Button>
+                <Link href="/content/complaints/newComplaints">
+                  <Button className="m-2">Create Tickets</Button>
+                </Link>
+
                 <Button>View Tickets</Button>
               </div>
             </div>
