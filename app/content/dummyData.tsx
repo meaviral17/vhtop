@@ -1,6 +1,6 @@
-import achievement from "@/assets/achievement.png"
+import achievement from "@/assets/achievement.png";
 import { StaticImageData } from "next/image";
-import lightning from "@/assets/lightning.png"
+import lightning from "@/assets/lightning.png";
 interface dummyData {
   id: number;
   title: string;
@@ -10,7 +10,7 @@ interface dummyData {
 const dummyData: dummyData[] = [
   {
     id: 1,
-    title: "Vellore Institue of technology(VIT),India",
+    title: "Vellore Institue of technology(VIT),",
     icon: achievement,
     content: [
       "Ranked among the top 601-700 Universities of the world and one among the top 3 Institutions in India (Shanghai ARWU Ranking 2022)",
