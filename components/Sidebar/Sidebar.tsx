@@ -1,10 +1,12 @@
 import React from "react";
 import calling from "@/assets/calling.png";
 import clothes from "@/assets/clothes.png";
+import chatbot from "@/assets/chatbot.png";
 import studyHub from "@/assets/studyHub.png";
 import vshare from "@/assets/vshare.png";
 import food from "@/assets/food.png";
 import sports from "@/assets/sports.png";
+
 import complaints from "@/assets/complaints.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -45,6 +47,11 @@ const Sidebar = () => {
       <Link href="/content/vshare">
         <div>
           <Image src={vshare} height={25} width={25} alt="contacts"></Image>
+        </div>
+      </Link>
+      <Link href="/content/v-chat">
+        <div>
+          <Image src={chatbot} height={25} width={25} alt="contacts"></Image>
         </div>
       </Link>
     </div>
