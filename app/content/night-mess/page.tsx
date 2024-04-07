@@ -3,6 +3,8 @@ import AppbarLogin from "@/components/Appbar/AppbarLogin";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import FoodItems from "@/components/FoodItems/FoodItems";
 import { nightVegData } from "./NightVegData";
+import { nightNonVegData } from "./NightNonVegData";
+import { nightShakesData } from "./NightShakesData";
 const page = () => {
   return (
     <div>
@@ -16,7 +18,9 @@ const page = () => {
           <span className="text-gray-500">Description: </span>
           Night Mess is operated between 10:30 p.m to 1:00 a.m.
         </p>
-        <FoodItems foodItems={nightVegData} />
+        <FoodItems title="Veg Items" foodItems={nightVegData} /> 
+        <FoodItems title="Non-Veg Items" foodItems={nightNonVegData} /> 
+        <FoodItems title="juice" foodItems={nightShakesData} /> 
       </div>
     </div>
   );
