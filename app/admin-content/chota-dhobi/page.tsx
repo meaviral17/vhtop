@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState } from "react";
 import AppbarAdmin from "@/components/Appbar/AppbarAdmin";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
@@ -16,6 +16,7 @@ const Page: React.FC = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [filteredPeople, setFilteredPeople] = useState<Person[]>([]);
   const [inWashList, setInWashList] = useState<Person[]>([]);
+  const [filteredInWashList, setFilteredInWashList] = useState<Person[]>([]);
   const [isLaundryDayToday, setIsLaundryDayToday] = useState<boolean>(false);
 
   // Dummy list of people with registration numbers and laundry days
@@ -47,8 +48,10 @@ const Page: React.FC = () => {
     // Add more people as needed
   ];
 
-  // Function to handle search input change
-  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // Function to handle search input change for main list
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const inputValue = event.target.value;
     setSearchInput(inputValue);
     // Filter people based on registration number
@@ -61,6 +64,18 @@ const Page: React.FC = () => {
     const today = new Date().toLocaleString("en-us", { weekday: "long" });
     const isToday = filtered.some((person) => person.laundryDay === today);
     setIsLaundryDayToday(isToday);
+  };
+
+  // Function to handle search input change for "In Wash" list
+  const handleInWashSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const inputValue = event.target.value;
+    // Filter "In Wash" list based on registration number
+    const filtered = inWashList.filter((person) =>
+      person.regNumber.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    setFilteredInWashList(filtered);
   };
 
   // Function to handle accepting laundry
@@ -88,17 +103,24 @@ const Page: React.FC = () => {
           <ul>
             {filteredPeople.length > 0 ? (
               filteredPeople.map((person, index) => {
-                const today = new Date().toLocaleString("en-us", { weekday: "long" });
+                const today = new Date().toLocaleString("en-us", {
+                  weekday: "long",
+                });
                 return (
                   <li
                     key={index}
                     className={
-                      person.laundryDay === today ? "text-primary font-semibold" : "text-gray-500"
+                      person.laundryDay === today
+                        ? "text-primary font-semibold"
+                        : "text-gray-500"
                     }
                   >
-                    {person.name} - Room: {person.roomNumber} - Reg. No: {person.regNumber}
+                    {person.name} - Room: {person.roomNumber} - Reg. No:{" "}
+                    {person.regNumber}
                     {isLaundryDayToday && (
-                      <Button onClick={() => handleAcceptLaundry(person)}>Accept</Button>
+                      <Button onClick={() => handleAcceptLaundry(person)}>
+                        Accept
+                      </Button>
                     )}
                   </li>
                 );
@@ -111,12 +133,24 @@ const Page: React.FC = () => {
       </div>
       <div className="mx-4 mt-4">
         <h2 className="text-primary text-xl font-medium">In Wash</h2>
+        <div className="flex md:flex-row flex-col gap-3 m-4 p-2">
+          <Input
+            type="text"
+            placeholder="Registration Number"
+            onChange={handleInWashSearchInputChange}
+          />
+        </div>
         <ul>
-          {inWashList.map((person, index) => (
-            <li key={index}>
-              {person.name} - Room: {person.roomNumber} - Reg. No: {person.regNumber}
-            </li>
-          ))}
+          {filteredInWashList.length > 0 ? (
+            filteredInWashList.map((person, index) => (
+              <li key={index}>
+                {person.name} - Room: {person.roomNumber} - Reg. No:{" "}
+                {person.regNumber}
+              </li>
+            ))
+          ) : (
+            inWashList.length === 0 && <li>No items in wash</li>
+          )}
         </ul>
       </div>
     </div>
@@ -124,5 +158,3 @@ const Page: React.FC = () => {
 };
 
 export default Page;
-
-
