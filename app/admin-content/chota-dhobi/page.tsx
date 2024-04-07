@@ -81,6 +81,7 @@ const Page: React.FC = () => {
   // Function to handle accepting laundry
   const handleAcceptLaundry = (person: Person) => {
     setInWashList((prevList) => [...prevList, person]);
+    setFilteredPeople((prevList) => prevList.filter((p) => p.regNumber !== person.regNumber));
   };
 
   return (
@@ -103,25 +104,14 @@ const Page: React.FC = () => {
           <ul>
             {filteredPeople.length > 0 ? (
               filteredPeople.map((person, index) => {
-                const today = new Date().toLocaleString("en-us", {
-                  weekday: "long",
-                });
                 return (
                   <li
                     key={index}
-                    className={
-                      person.laundryDay === today
-                        ? "text-primary font-semibold"
-                        : "text-gray-500"
-                    }
+                    className="text-primary font-semibold"
                   >
                     {person.name} - Room: {person.roomNumber} - Reg. No:{" "}
                     {person.regNumber}
-                    {isLaundryDayToday && (
-                      <Button onClick={() => handleAcceptLaundry(person)}>
-                        Accept
-                      </Button>
-                    )}
+                    <Button onClick={() => handleAcceptLaundry(person)}>Accept</Button>
                   </li>
                 );
               })
