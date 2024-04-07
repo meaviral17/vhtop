@@ -15,6 +15,8 @@ interface Person {
 const Page: React.FC = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [filteredPeople, setFilteredPeople] = useState<Person[]>([]);
+  const [inWashList, setInWashList] = useState<Person[]>([]);
+  const [isLaundryDayToday, setIsLaundryDayToday] = useState<boolean>(false);
 
   // Dummy list of people with registration numbers and laundry days
   const people: Person[] = [
@@ -46,9 +48,7 @@ const Page: React.FC = () => {
   ];
 
   // Function to handle search input change
-  const handleSearchInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     setSearchInput(inputValue);
     // Filter people based on registration number
@@ -56,10 +56,17 @@ const Page: React.FC = () => {
       person.regNumber.toLowerCase().includes(inputValue.toLowerCase())
     );
     setFilteredPeople(filtered);
+
+    // Check if laundry day is today for any filtered person
+    const today = new Date().toLocaleString("en-us", { weekday: "long" });
+    const isToday = filtered.some((person) => person.laundryDay === today);
+    setIsLaundryDayToday(isToday);
   };
 
-  // Get the current day of the week
-  const today = new Date().toLocaleString("en-us", { weekday: "long" });
+  // Function to handle accepting laundry
+  const handleAcceptLaundry = (person: Person) => {
+    setInWashList((prevList) => [...prevList, person]);
+  };
 
   return (
     <div>
@@ -67,9 +74,7 @@ const Page: React.FC = () => {
       <AdminSidebar />
       <div className="flex flex-col sm:ml-12 ml-3">
         <div className="text-primary text-4xl font-medium m-4">Chota-Dhobi</div>
-        <p className="text-gray-500 mx-4 text-xl">
-          Search using Registration Number
-        </p>
+        <p className="text-gray-500 mx-4 text-xl">Search using Registration Number</p>
         <div className="flex md:flex-row flex-col gap-3 m-4 p-2">
           <Input
             type="text"
@@ -81,26 +86,43 @@ const Page: React.FC = () => {
         </div>
         <div className="mx-4 mt-4">
           <ul>
-            {searchInput && filteredPeople.length > 0
-              ? filteredPeople.map((person, index) => (
+            {filteredPeople.length > 0 ? (
+              filteredPeople.map((person, index) => {
+                const today = new Date().toLocaleString("en-us", { weekday: "long" });
+                return (
                   <li
                     key={index}
                     className={
-                      person.laundryDay === today
-                        ? "text-primary font-semibold"
-                        : "text-gray-500"
+                      person.laundryDay === today ? "text-primary font-semibold" : "text-gray-500"
                     }
                   >
-                    {person.name} - Room: {person.roomNumber} - Reg. No:{" "}
-                    {person.regNumber}
+                    {person.name} - Room: {person.roomNumber} - Reg. No: {person.regNumber}
+                    {isLaundryDayToday && (
+                      <Button onClick={() => handleAcceptLaundry(person)}>Accept</Button>
+                    )}
                   </li>
-                ))
-              : searchInput && <li>No results found</li>}
+                );
+              })
+            ) : (
+              searchInput && <li>No results found</li>
+            )}
           </ul>
         </div>
+      </div>
+      <div className="mx-4 mt-4">
+        <h2 className="text-primary text-xl font-medium">In Wash</h2>
+        <ul>
+          {inWashList.map((person, index) => (
+            <li key={index}>
+              {person.name} - Room: {person.roomNumber} - Reg. No: {person.regNumber}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
 };
 
 export default Page;
+
+
