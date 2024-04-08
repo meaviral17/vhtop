@@ -21,6 +21,7 @@ export default function Login() {
     const user = await createUserAndStoreEmail();
     if (user){
       setUser(user);
+      window.location.href="/content"
     }
     console.log(use);
   };
