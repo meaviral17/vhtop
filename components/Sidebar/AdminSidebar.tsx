@@ -1,8 +1,8 @@
 import React from "react";
 import calling from "@/assets/calling.png";
-import clothes from "@/assets/clothes.png";
+
 import studyHub from "@/assets/studyHub.png";
-import carsharing from "@/assets/car-sharing.png";
+
 import food from "@/assets/food.png";
 import sports from "@/assets/sports.png";
 import complaints from "@/assets/complaints.png";
@@ -17,31 +17,30 @@ import {
 import Link from "next/link";
 const links = [
   {
-    href: "/content/complaints",
+    href: "/admin-content/chota-dhobi",
     src: complaints,
     alt: "complaints",
     tooltip: "Complaints",
   },
   {
-    href: "/content/contacts",
+    href: "/admin-content/complaints",
     src: calling,
     alt: "contacts",
     tooltip: "Contacts",
   },
-  { href: "/content/food-park", src: food, alt: "Mess", tooltip: "Mess" },
-  { href: "/content/games", src: sports, alt: "laundary", tooltip: "Laundry" },
-  { href: "/content/night-mess", src: sports, alt: "games", tooltip: "Games" },
+  { href: "/admin-content/food-park", src: food, alt: "Mess", tooltip: "Mess" },
+  { href: "/admin-content/Found", src: sports, alt: "found", tooltip: "Found" },
   {
-    href: "/content/study-hub",
-    src: studyHub,
-    alt: "contacts",
-    tooltip: "Study Hub",
+    href: "/admin-content/night-mess",
+    src: sports,
+    alt: "night-mess",
+    tooltip: "night-mess",
   },
   {
-    href: "/content/vshare",
-    src: carsharing,
-    alt: "contacts",
-    tooltip: "VShare",
+    href: "/admin-content/photocopy",
+    src: studyHub,
+    alt: "photocopy",
+    tooltip: "photocopy",
   },
 ];
 const AdminSidebar = () => {
