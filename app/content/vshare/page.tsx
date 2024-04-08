@@ -39,6 +39,7 @@ export type Payment = {
   destination: string;
   date: string;
   slot: string;
+  contact: string;
 };
 
 const Page = () => {
@@ -62,6 +63,7 @@ const Page = () => {
     { accessorKey: "destination", header: "Destination" },
     { accessorKey: "date", header: "Date" },
     { accessorKey: "slot", header: "Slot" },
+    { accessorKey: "contact", header: "Contact" },
   ];
 
   // Create the table instance
