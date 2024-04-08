@@ -11,8 +11,9 @@ const page = () => {
       <AppbarLogin></AppbarLogin>
       <Sidebar></Sidebar>
       <div className="flex flex-col sm:ml-12 ml-3">
-        <div className="text-primary text-4xl font-medium m-4">
-          Night-Mess : For your late night cravings
+        <div className="flex items-center justify-between text-primary text-4xl font-medium m-4">
+          <p>Night-Mess : For your late night cravings</p>
+          <div>CART ICON</div>
         </div>
         <p className="text-gray-500 mx-4 text-xl">
           <span className="text-gray-500">Description: </span>
