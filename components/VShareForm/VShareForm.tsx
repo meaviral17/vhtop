@@ -17,12 +17,18 @@ import {
 } from "@/components/ui/popover";
 import SearchSVG from "@/assets/svg/SearchSVG";
 import { Calendar } from "../ui/calendar";
+import { Input } from "@/components/ui/input";
 
-const VShareForm = ({ handleSelectedData }: { handleSelectedData: Function }) => {
+const VShareForm = ({
+  handleSelectedData,
+}: {
+  handleSelectedData: Function;
+}) => {
   const [source, setSource] = useState<string>("");
   const [destination, setDestination] = useState<string>("");
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [slot, setSlot] = useState<string>("");
+  const [contact, setContact] = useState<string>("");
 
   const handleSearch = () => {
     // Create an object with selected data
@@ -31,6 +37,7 @@ const VShareForm = ({ handleSelectedData }: { handleSelectedData: Function }) =>
       destination,
       date: date ? format(date, "PPP") : "",
       slot,
+      contact,
     };
 
     // Pass the selected data to the parent component
@@ -102,6 +109,12 @@ const VShareForm = ({ handleSelectedData }: { handleSelectedData: Function }) =>
           </SelectGroup>
         </SelectContent>
       </Select>
+      <Input
+        type="text"
+        placeholder="contact"
+        onChange={(e) => setContact(e.target.value)}
+        className="w-[250px]"
+      />
       <Button className="flex gap-2" onClick={handleSearch}>
         Search your travel mate <SearchSVG></SearchSVG>
       </Button>
