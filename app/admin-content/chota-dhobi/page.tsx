@@ -18,6 +18,9 @@ const Page: React.FC = () => {
   const [filteredPeople, setFilteredPeople] = useState<Person[]>([]);
   const [inWashList, setInWashList] = useState<Person[]>([]);
   const [filteredInWashList, setFilteredInWashList] = useState<Person[]>([]);
+  const [acceptedRegistrations, setAcceptedRegistrations] = useState<string[]>(
+    []
+  );
 
   // Dummy list of people with registration numbers and laundry days
   const people: Person[] = [
@@ -59,9 +62,11 @@ const Page: React.FC = () => {
     const inputValue = event.target.value;
     setSearchInput(inputValue);
     // Filter people based on registration number
-    const filtered = people.filter((person) =>
-      person.regNumber.toLowerCase().includes(inputValue.toLowerCase())
-    );
+    const filtered = people
+      .filter((person) =>
+        person.regNumber.toLowerCase().includes(inputValue.toLowerCase())
+      )
+      .filter((person) => !acceptedRegistrations.includes(person.regNumber));
     setFilteredPeople(filtered);
   };
 
@@ -80,10 +85,30 @@ const Page: React.FC = () => {
   // Function to handle accepting laundry
   const handleAcceptLaundry = (person: Person) => {
     setInWashList((prevList) => [...prevList, person]);
+    setAcceptedRegistrations((prevRegistrations) => [
+      ...prevRegistrations,
+      person.regNumber,
+    ]);
     setFilteredPeople((prevList) =>
-      prevList.map((p) =>
-        p.regNumber === person.regNumber ? { ...p, accepted: true } : p
-      )
+      prevList.filter((p) => p.regNumber !== person.regNumber)
+    );
+  };
+
+  // Function to handle returning laundry
+  // const handleReturnLaundry = (person: Person) => {
+  //   setInWashList((prevList) =>
+  //     prevList.filter((p) => p.regNumber !== person.regNumber)
+  //   );
+  //   setAcceptedRegistrations((prevRegistrations) =>
+  //     prevRegistrations.filter((regNumber) => regNumber !== person.regNumber)
+  //   );
+  // };
+  const handleReturnLaundry = (regNumber: string) => {
+    setInWashList((prevList) =>
+      prevList.filter((person) => person.regNumber !== regNumber)
+    );
+    setFilteredInWashList((prevList) =>
+      prevList.filter((person) => person.regNumber !== regNumber)
     );
   };
 
@@ -138,7 +163,9 @@ const Page: React.FC = () => {
           </ul>
         </div>
         <div className="mx-4 mt-4 grid gap-3">
-          <h2 className="text-primary text-2xl font-medium">Currently In Wash</h2>
+          <h2 className="text-primary text-2xl font-medium">
+            Currently In Wash
+          </h2>
           <div>
             <Input
               type="text"
@@ -152,6 +179,12 @@ const Page: React.FC = () => {
                   <li key={index}>
                     {person.name} - Room: {person.roomNumber} - Reg. No:{" "}
                     {person.regNumber}
+                    <Button
+                      className="ml-2"
+                      onClick={() => handleReturnLaundry(person.regNumber)}
+                    >
+                      Return
+                    </Button>
                   </li>
                 ))
               : inWashList.length === 0 && <li>No items in wash</li>}
