@@ -50,10 +50,6 @@ const FoodItems: React.FC<FoodItemsProps> = ({ title, foodItems }) => {
       console.log(totalPrice);
     }
   };
- 
-
- 
-  
 
   const handleDecrement = () => {
     if (selectedItem && quantity > 1) {
@@ -113,7 +109,7 @@ const FoodItems: React.FC<FoodItemsProps> = ({ title, foodItems }) => {
               <Button variant="outline" size="icon" onClick={handleIncrement}>
                 +
               </Button>
-              <p>Total Price: {totalPrice.toFixed(2)}</p>
+              <p>Total Price: {totalPrice}</p>
             </DialogFooter>
           </DialogContent>
         )}
@@ -123,4 +119,3 @@ const FoodItems: React.FC<FoodItemsProps> = ({ title, foodItems }) => {
 };
 
 export default FoodItems;
-
