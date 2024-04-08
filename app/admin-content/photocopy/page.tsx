@@ -2,12 +2,14 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import AppbarAdmin from "@/components/Appbar/AppbarAdmin";
+import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 
 interface XeroxRequest {
   regNumber: string;
   file: File | null;
   location: string;
-  status: "pending" | "processing" | "completed";
+  collected: boolean; 
 }
 
 const XeroxService: React.FC = () => {
@@ -15,6 +17,11 @@ const XeroxService: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [location, setLocation] = useState<string>("AB1");
   const [requests, setRequests] = useState<XeroxRequest[]>([]);
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [waitingCount, setWaitingCount] = useState<{ [key: string]: number }>({
+    AB1: 0,
+    AB2: 0,
+  });
 
   const handleRegNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRegNumber(event.target.value);
@@ -26,6 +33,7 @@ const XeroxService: React.FC = () => {
       setFile(files[0]);
     }
   };
+  
 
   const handleLocationChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setLocation(event.target.value);
@@ -37,41 +45,89 @@ const XeroxService: React.FC = () => {
         regNumber,
         file,
         location,
-        status: "pending",
+        collected: false, 
       };
       setRequests((prevRequests) => [...prevRequests, newRequest]);
+      setWaitingCount((prevCount) => ({
+        ...prevCount,
+        [location]: prevCount[location] 
+      }));
     }
   };
 
+  const handleCollectRequest = (index: number) => {
+    const updatedRequests = [...requests];
+    const collectedLocation = updatedRequests[index].location;
+    updatedRequests[index].collected = true; 
+    setRequests(updatedRequests);
+    setWaitingCount((prevCount) => ({
+      ...prevCount,
+      [collectedLocation]: Math.max(0, prevCount[collectedLocation] - 1), 
+    }));
+  };
+
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(event.target.value);
+  };
+
+  const waitingOrdersAB1 = requests.filter((request) => request.location === "AB1" && !request.collected).length;
+  const waitingOrdersAB2 = requests.filter((request) => request.location === "AB2" && !request.collected).length;
+
   return (
     <div>
-      <h2 className="text-primary text-2xl font-medium">Xerox Service</h2>
-      <div className="flex flex-col gap-3 m-4">
-        <Input
-          type="text"
-          placeholder="Registration Number"
-          value={regNumber}
-          onChange={handleRegNumberChange}
-        />
-        <Input type="file" onChange={handleFileChange} />
-        <div>
-          <label htmlFor="location">Choose a location:</label>
-          <select id="location" value={location} onChange={handleLocationChange}>
-            <option value="AB1">AB1</option>
-            <option value="AB2">AB2</option>
-          </select>
+      <AppbarAdmin />
+      <AdminSidebar />
+      <div className="flex flex-col sm:ml-12 ml-3">
+        <h2 className="text-primary text-4xl font-medium m-4">Xerox Service</h2>
+        <div className="flex flex-col gap-3 m-4">
+          <Input
+            type="text"
+            placeholder="Registration Number"
+            value={regNumber}
+            onChange={handleRegNumberChange}
+          />
+          <Input type="file" onChange={handleFileChange} />
+          <div>
+            <label htmlFor="location">Choose a location:</label>
+            <select id="location" value={location} onChange={handleLocationChange}>
+              <option value="AB1">AB1</option>
+              <option value="AB2">AB2</option>
+            </select>
+          </div>
+          <Button onClick={handleSubmit}>Submit</Button>
         </div>
-        <Button onClick={handleSubmit}>Submit</Button>
-      </div>
-      <div>
-        <h3 className="text-primary text-xl font-medium">Request Status</h3>
-        <ul>
-          {requests.map((request, index) => (
-            <li key={index}>
-              Reg. Number: {request.regNumber}, Location: {request.location}, Status: {request.status}
-            </li>
-          ))}
-        </ul>
+        
+        <div className="flex flex-col gap-3 m-4">
+
+        <h2 className="text-primary text-2xl font-medium">
+          Waiting List:
+          </h2>
+          <ul>
+            {requests
+              .filter((request) =>
+                request.regNumber.toLowerCase().includes(searchInput.toLowerCase())
+              )
+              .map((request, index) => (
+                <li key={index}>
+                  Reg. Number: {request.regNumber}, Location: {request.location}
+                  {!request.collected && (
+                  <button
+                    onClick={() => handleCollectRequest(index)}
+                    className="px-4 py-2 bg-primary text-white rounded-md ml-4 mt-2">
+                      Collect
+                  </button>
+                  )}
+                </li>
+              ))}
+          </ul>
+        </div>
+        <div className="mx-4 mt-4 grid gap-3">
+          <h2 className="text-primary text-2xl font-medium">
+          Number of Orders (Waiting):
+          </h2>
+          <p>AB1: {waitingOrdersAB1}</p>
+          <p>AB2: {waitingOrdersAB2}</p>
+        </div>
       </div>
     </div>
   );
