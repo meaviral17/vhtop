@@ -10,6 +10,7 @@ interface Person {
   roomNumber: string;
   regNumber: string;
   laundryDay: string;
+  accepted: boolean;
 }
 
 const Page: React.FC = () => {
@@ -17,7 +18,6 @@ const Page: React.FC = () => {
   const [filteredPeople, setFilteredPeople] = useState<Person[]>([]);
   const [inWashList, setInWashList] = useState<Person[]>([]);
   const [filteredInWashList, setFilteredInWashList] = useState<Person[]>([]);
-  const [isLaundryDayToday, setIsLaundryDayToday] = useState<boolean>(false);
 
   // Dummy list of people with registration numbers and laundry days
   const people: Person[] = [
@@ -26,24 +26,28 @@ const Page: React.FC = () => {
       roomNumber: "101",
       regNumber: "REG001",
       laundryDay: "Monday",
+      accepted: false,
     },
     {
       name: "Jane Smith",
       roomNumber: "102",
       regNumber: "REG002",
       laundryDay: "Tuesday",
+      accepted: false,
     },
     {
       name: "Alice Johnson",
       roomNumber: "103",
       regNumber: "REG003",
       laundryDay: "Wednesday",
+      accepted: false,
     },
     {
       name: "Shahzil",
       roomNumber: "103",
       regNumber: "1161",
       laundryDay: "Sunday",
+      accepted: false,
     },
     // Add more people as needed
   ];
@@ -59,11 +63,6 @@ const Page: React.FC = () => {
       person.regNumber.toLowerCase().includes(inputValue.toLowerCase())
     );
     setFilteredPeople(filtered);
-
-    // Check if laundry day is today for any filtered person
-    const today = new Date().toLocaleString("en-us", { weekday: "long" });
-    const isToday = filtered.some((person) => person.laundryDay === today);
-    setIsLaundryDayToday(isToday);
   };
 
   // Function to handle search input change for "In Wash" list
@@ -81,16 +80,27 @@ const Page: React.FC = () => {
   // Function to handle accepting laundry
   const handleAcceptLaundry = (person: Person) => {
     setInWashList((prevList) => [...prevList, person]);
-    setFilteredPeople((prevList) => prevList.filter((p) => p.regNumber !== person.regNumber));
+    setFilteredPeople((prevList) =>
+      prevList.map((p) =>
+        p.regNumber === person.regNumber ? { ...p, accepted: true } : p
+      )
+    );
   };
+
+  // Get the current day of the week
+  const today = new Date().toLocaleString("en-us", { weekday: "long" });
 
   return (
     <div>
       <AppbarAdmin />
       <AdminSidebar />
       <div className="flex flex-col sm:ml-12 ml-3">
-        <div className="text-primary text-4xl font-medium m-4">Chota-Dhobi</div>
-        <p className="text-gray-500 mx-4 text-xl">Search using Registration Number</p>
+        <div className="text-primary text-4xl font-medium m-4">
+          Chota-Dhobi
+        </div>
+        <p className="text-gray-500 mx-4 text-xl">
+          Search using Registration Number
+        </p>
         <div className="flex md:flex-row flex-col gap-3 m-4 p-2">
           <Input
             type="text"
@@ -103,18 +113,26 @@ const Page: React.FC = () => {
         <div className="mx-4 mt-4">
           <ul>
             {filteredPeople.length > 0 ? (
-              filteredPeople.map((person, index) => {
-                return (
-                  <li
-                    key={index}
-                    className="text-primary font-semibold"
-                  >
-                    {person.name} - Room: {person.roomNumber} - Reg. No:{" "}
-                    {person.regNumber}
-                    <Button onClick={() => handleAcceptLaundry(person)}>Accept</Button>
-                  </li>
-                );
-              })
+              filteredPeople.map((person, index) => (
+                <li
+                  key={index}
+                  className={
+                    person.accepted
+                      ? "text-gray-500"
+                      : person.laundryDay === today
+                      ? "text-primary font-semibold"
+                      : "text-gray-500"
+                  }
+                >
+                  {person.name} - Room: {person.roomNumber} - Reg. No:{" "}
+                  {person.regNumber}
+                  {!person.accepted && (
+                    <Button onClick={() => handleAcceptLaundry(person)}>
+                      Accept
+                    </Button>
+                  )}
+                </li>
+              ))
             ) : (
               searchInput && <li>No results found</li>
             )}
