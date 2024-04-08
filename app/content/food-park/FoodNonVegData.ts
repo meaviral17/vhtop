@@ -1,4 +1,4 @@
-import Butterchicken from "@/assets/food-park/non-veg/Butter-chicken.png"
+// import Butterchicken from "@/assets/food-park/non-veg/Butter-chicken.png"
 import chicken65 from "@/assets/food-park/non-veg/chicken-65.png"
 import chickenhyderabadi from "@/assets/food-park/non-veg/chicken-hyderabadi.png"
 import chickensukka from "@/assets/food-park/non-veg/chicken-sukka.png"
@@ -9,7 +9,7 @@ import Mughalaichicken from "@/assets/food-park/non-veg/mughalai-chicken.png"
 
 
 export const foodNonVegData = [
-    { title: "Butter Chicken", price: "Rs. 100/-", image: Butterchicken },
+    // { title: "Butter Chicken", price: "Rs. 100/-", image: Butterchicken },
     { title: "Chicken 65 ", price: "Rs. 95/-", image: chicken65 },
     { title: "Chicken Hyderabadi", price: "Rs. 120/-", image: chickenhyderabadi},
     { title: "Chicken Sukka", price: "Rs. 80/-", image: chickensukka},
