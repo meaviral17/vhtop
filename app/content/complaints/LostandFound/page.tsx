@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import AppbarLogin from "@/components/Appbar/AppbarLogin";
 import Sidebar from "@/components/Sidebar/Sidebar";
@@ -126,7 +127,10 @@ const Page: React.FC = () => {
       setComplaints([...complaints, formData]);
 
       // Check if localStorage is available before using it
-      if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+      if (
+        typeof window !== "undefined" &&
+        typeof localStorage !== "undefined"
+      ) {
         // Storing formData in localStorage
         localStorage.setItem("formData", JSON.stringify(formData));
 
