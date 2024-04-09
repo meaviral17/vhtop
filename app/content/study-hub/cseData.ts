@@ -1,12 +1,12 @@
 
 export const cseData = [
-    { title: "Aloo Jeera", code: "Rs. 75/-"},
-    { title: "Bindi Masala", code: "Rs. 75/-"},
-    { title: "Chilli Paneer", code: "Rs. 75/-" },
-    { title: "Kadai Masala", code: "Rs. 75/-"},
-    { title: "Mushroom Masala", code: "Rs. 75/-" },
+    { title: "Data Structures & Algorithm", code: "BCSE202L"},
+    { title: "Database Systems", code: "BCSE302L"},
+    { title: "Web Programming", code: "BCSE202L" },
+    { title: "Operating Systems", code: "BCSE303L"},
+    { title: "Computer Architecture", code: "BCSE205L" },
 
 
-    // { title: "Lassi", price: "Rs. 50/-", image: lassi}
+    // { title: "Lassi", price: "Rs. 50/-" , image: lassi}
     // Add more items here
   ];

@@ -4,7 +4,6 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import SubjectItems from "@/components/SubjectItems/SubjectItems";
 import { cseData } from "./cseData";
 import { eceData } from "./eceData";
-import { mechData } from "./mechData";
 const page = () => {
   return (
     <div>
@@ -19,8 +18,7 @@ const page = () => {
           Night Mess is operated between 10:30 p.m to 1:00 a.m.
         </p> */}
         <SubjectItems title="Computer Science & Specializations" subItems={cseData} /> 
-        <SubjectItems title="Electrical" subItems={eceData} /> 
-        <SubjectItems title="Mechanical" subItems={mechData} /> 
+        <SubjectItems title="Electronics and Communication" subItems={eceData} /> 
 
       </div>
     </div>
