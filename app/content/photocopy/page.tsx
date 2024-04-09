@@ -1,5 +1,7 @@
 "use client"
 import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import AppbarAdmin from "@/components/Appbar/AppbarAdmin";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 
@@ -76,40 +78,26 @@ const XeroxService: React.FC = () => {
       <AppbarAdmin />
       <AdminSidebar />
       <div className="flex flex-col sm:ml-12 ml-3">
-        <h2 className="text-primary text-4xl font-medium m-4">Xerox Service</h2> 
+        <h2 className="text-primary text-4xl font-medium m-4">Xerox Service</h2>
         <div className="flex flex-col gap-3 m-4">
-
-        <h2 className="text-primary text-2xl font-medium">
-          Waiting List:
-          </h2>
-          <ul>
-            {requests
-              .filter((request) =>
-                request.regNumber.toLowerCase().includes(searchInput.toLowerCase())
-              )
-              .map((request, index) => (
-                <li key={index}>
-                  Reg. Number: {request.regNumber}, Location: {request.location}
-                  {!request.collected && (
-                  <button
-                    onClick={() => handleCollectRequest(index)}
-                    className="px-4 py-2 bg-primary text-white rounded-md ml-4 mt-2">
-                      Collect
-                  </button>
-                  )}
-                </li>
-              ))}
-          </ul>
+          <Input
+            type="text"
+            placeholder="Registration Number"
+            value={regNumber}
+            onChange={handleRegNumberChange}
+          />
+          <Input type="file" onChange={handleFileChange} />
+          <div>
+            <label htmlFor="location">Choose a location:</label>
+            <select id="location" value={location} onChange={handleLocationChange}>
+              <option value="AB1">AB1</option>
+              <option value="AB2">AB2</option>
+            </select>
+          </div>
+          <Button onClick={handleSubmit}>Submit</Button>
         </div>
-        <div className="mx-4 mt-4 grid gap-3">
-          <h2 className="text-primary text-2xl font-medium">
-          Number of Orders (Waiting):
-          </h2>
-          <p>AB1: {waitingOrdersAB1}</p>
-          <p>AB2: {waitingOrdersAB2}</p>
         </div>
       </div>
-    </div>
   );
 };
 
