@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import vitlogo from "@/public/vitclogo.png";
+import useUserStore from "@/app/store/store";
 
 const AppbarNoLogin = () => {
   return (
