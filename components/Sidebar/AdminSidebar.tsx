@@ -1,11 +1,11 @@
 import React from "react";
-import calling from "@/assets/calling.png";
-
+import warning from "@/assets/warning.png";
 import studyHub from "@/assets/studyHub.png";
-
+import chotadhobi from "@/assets/chotadhobi.png";
 import food from "@/assets/food.png";
-import sports from "@/assets/sports.png";
 import complaints from "@/assets/complaints.png";
+import nightmess from "@/assets/nightmess.png";
+import found from "@/assets/found.png";
 import Image from "next/image";
 import {
   Tooltip,
@@ -18,21 +18,15 @@ import Link from "next/link";
 const links = [
   {
     href: "/admin-content/chota-dhobi",
-    src: complaints,
-    alt: "complaints",
-    tooltip: "Complaints",
+    src: chotadhobi,
+    alt: "chotadhobi",
+    tooltip: "Chota Dhobi",
   },
-  {
-    href: "/admin-content/complaints",
-    src: calling,
-    alt: "contacts",
-    tooltip: "Contacts",
-  },
-  { href: "/admin-content/food-park", src: food, alt: "Mess", tooltip: "Mess" },
-  { href: "/admin-content/Found", src: sports, alt: "found", tooltip: "Found" },
+  { href: "/admin-content/food-park", src: food, alt: "foodpark", tooltip: "Food Park" },
+  { href: "/admin-content/Found", src: found, alt: "found", tooltip: "Found" },
   {
     href: "/admin-content/night-mess",
-    src: sports,
+    src: nightmess,
     alt: "night-mess",
     tooltip: "night-mess",
   },
@@ -41,6 +35,18 @@ const links = [
     src: studyHub,
     alt: "photocopy",
     tooltip: "photocopy",
+  },
+  {
+    href: "/admin-content/warning",
+    src: warning,
+    alt: "warning",
+    tooltip: "Warning",
+  },
+  {
+    href: "/admin-content/complaints",
+    src: complaints,
+    alt: "complaints",
+    tooltip: "Complaints",
   },
 ];
 const AdminSidebar = () => {
