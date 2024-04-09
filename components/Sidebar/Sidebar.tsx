@@ -29,9 +29,9 @@ const links = [
     alt: "contacts",
     tooltip: "Contacts",
   },
-  { href: "/content/food-park", src: food, alt: "Mess", tooltip: "Mess" },
-  { href: "/content/games", src: sports, alt: "laundary", tooltip: "Laundry" },
-  { href: "/content/night-mess", src: sports, alt: "games", tooltip: "Games" },
+  { href: "/content/food-park", src: food, alt: "Food Park", tooltip: "Food Park" },
+  { href: "/content/laundry", src: sports, alt: "laundary", tooltip: "Laundry" },
+  { href: "/content/night-mess", src: food, alt: "Night Mess", tooltip: "Night Mess" },
   {
     href: "/content/study-hub",
     src: studyHub,
