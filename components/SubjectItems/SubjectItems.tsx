@@ -17,17 +17,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 import Image, { StaticImageData } from "next/image";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 interface SubjectItem {
   title: string;
-  code: string; // StaticImageData type for Next.js Image component
+  code: string;
+  link: string; // Add a field for the link
 }
 
 interface SubjectsProps {
-  title: string; // Add a prop for the title
+  title: string;
   subItems: SubjectItem[];
 }
 
@@ -37,8 +38,6 @@ const SubjectItems: React.FC<SubjectsProps> = ({ title, subItems }) => {
   const handleCardClick = (item: SubjectItem) => {
     setSelectedItem(item);
   };
-
- 
 
   return (
     <div className="m-4">
@@ -57,6 +56,7 @@ const SubjectItems: React.FC<SubjectsProps> = ({ title, subItems }) => {
                   <CardDescription>{item.code}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex items-center justify-center">
+                  <a href={item.link} target="_blank" rel="noopener noreferrer">Link</a>
                 </CardContent>
                 <CardFooter className="flex justify-between"></CardFooter>
               </Card>
@@ -68,6 +68,7 @@ const SubjectItems: React.FC<SubjectsProps> = ({ title, subItems }) => {
             <DialogHeader>
               <DialogTitle>{selectedItem.title}</DialogTitle>
               <DialogDescription>{selectedItem.code}</DialogDescription>
+              <DialogDescription><Link href={selectedItem.code}>Access Materials here</Link></DialogDescription>
             </DialogHeader>
           </DialogContent>
         )}
