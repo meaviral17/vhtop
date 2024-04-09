@@ -22,7 +22,7 @@ const isValidEmail = (email) => {
 };
 
 // Function to create user and store email in Firestore
-const createUserAndStoreEmail = async () => {
+const createStudentAndStoreEmail = async () => {
   try {
     // Use the authentication provider to sign in with Google
     const result = await signInWithPopup(auth, provider);
@@ -52,6 +52,7 @@ const createUserAndStoreEmail = async () => {
         block: "A",
         mess: "Veg",
         contact: "9927084882",
+        type: "Student"
       });
       const userSnapshot = await getDoc(userDocRef);
       const storedUser = userSnapshot.data();
@@ -68,4 +69,4 @@ const createUserAndStoreEmail = async () => {
   }
 };
 
-export default createUserAndStoreEmail;
+export default createStudentAndStoreEmail;

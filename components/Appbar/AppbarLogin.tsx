@@ -3,7 +3,9 @@ import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import vitlogo from "@/public/vitclogo.png";
+import useUserStore from "@/app/store/store";
 const AppbarLogin = () => {
+  const user=useUserStore((state)=>state.user);
   return (
     <div className="sticky top-0 z-10">
       <div className="h-14 bg-primary   flex items-center justify-between p-2 text-white font-medium">
@@ -19,7 +21,7 @@ const AppbarLogin = () => {
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <div>22MIS1161</div>
+          <div>{user.regNo}</div>
         </div>
       </div>
     </div>

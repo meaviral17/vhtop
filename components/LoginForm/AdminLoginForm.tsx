@@ -1,9 +1,9 @@
 "use client"
-import createStudentAndStoreEmail from "@/app/Hooks/SignIn";
+import createAdminAndStoreEmail from "@/app/Hooks/AdminSignIn";
 import Link from "next/link";
 import { useState, ChangeEvent } from "react";
 import useUserStore from "@/app/store/store"
-export default function Login() {
+export default function AdminLogin() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const setUser = useUserStore((state) => state.setUser);
@@ -18,10 +18,10 @@ export default function Login() {
 
   const usercreate = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    const user = await createStudentAndStoreEmail();
+    const user = await createAdminAndStoreEmail();
     if (user){
       setUser(user);
-      window.location.href="/content"
+      window.location.href="/admin-content"
     }
     console.log(use);
   };
