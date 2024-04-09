@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import AppbarAdmin from "@/components/Appbar/AppbarAdmin";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
-
+import vitclogo from "@/public/vitclogo.png"
 interface XeroxRequest {
   regNumber: string;
   file: File | null;
@@ -22,7 +22,64 @@ const XeroxService: React.FC = () => {
     AB1: 0,
     AB2: 0,
   });
+  const initializeRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      // document.body.appendChild(script);
 
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+  const makePayment = async () => {
+    console.log("here...");
+    const res = await initializeRazorpay();
+
+    if (!res) {
+      alert("Razorpay SDK Failed to load");
+      return;
+    }
+
+    // Make API call to the serverless API
+    const data = await fetch("/api/razorpay1", { method: "POST" }).then((t) =>
+      t.json()
+    );
+    console.log(data);
+    var options = {
+      key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
+      name: "Vellore Institute of technology",
+      currency: data.currency,
+      amount: 50,
+      order_id: data.id,
+      description: "Thankyou for your test donation",
+      image: vitclogo,
+      handler: function (response: {
+        razorpay_payment_id: any;
+        razorpay_order_id: any;
+        razorpay_signature: any;
+      }) {
+        // Validate payment at server - using webhooks is a better idea.
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+      },
+      prefill: {
+        name: "Manu Arora",
+        email: "manuarorawork@gmail.com",
+        contact: "9999999999",
+      },
+    };
+
+    const paymentObject = new (window as any).Razorpay(options);
+    paymentObject.open();
+  };
   const handleRegNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRegNumber(event.target.value);
   };
@@ -45,15 +102,28 @@ const XeroxService: React.FC = () => {
         regNumber,
         file,
         location,
-        collected: false, 
+        collected: false,
       };
-      setRequests((prevRequests) => [...prevRequests, newRequest]);
+      
+      // Store data in session storage
+      const existingRequests = sessionStorage.getItem('xeroxRequests');
+      const updatedRequests = existingRequests ? JSON.parse(existingRequests) : [];
+      updatedRequests.push(newRequest);
+      sessionStorage.setItem('xeroxRequests', JSON.stringify(updatedRequests));
+  
+      // Update waiting count
       setWaitingCount((prevCount) => ({
         ...prevCount,
-        [location]: prevCount[location] 
+        [location]: prevCount[location] + 1,
       }));
+      
+      // Clear form fields
+      setRegNumber("");
+      setFile(null);
+      makePayment();
     }
   };
+  
 
   const handleCollectRequest = (index: number) => {
     const updatedRequests = [...requests];
