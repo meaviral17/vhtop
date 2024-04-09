@@ -127,10 +127,7 @@ const Page: React.FC = () => {
       setComplaints([...complaints, formData]);
 
       // Check if localStorage is available before using it
-      if (
-        typeof window !== "undefined" &&
-        typeof localStorage !== "undefined"
-      ) {
+      if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
         // Storing formData in localStorage
         localStorage.setItem("formData", JSON.stringify(formData));
 
@@ -213,7 +210,112 @@ const Page: React.FC = () => {
                 </div>
               </div>
             </div>
-            {/* Other form fields */}
+            <div className="flex flex-wrap p-2">
+              <div className="w-full sm:w-1/5">
+                <div className="text-bold p-4">Sub Category</div>
+              </div>
+              <div className="w-full sm:w-4/5 flex">
+                <div className="w-full p-4">
+                  <select
+                    className="w-full border border-gray-600 p-2"
+                    onChange={handleSubcategoryChange}
+                    value={formData.subcategory}
+                    required
+                  >
+                    <option value="">Select Sub Category</option>
+                    {hostelItems[formData.category]?.map(
+                      (subcategory, index) => (
+                        <option key={index} value={subcategory}>
+                          {subcategory}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-wrap p-2">
+              <div className="w-full sm:w-1/5">
+                <div className="text-bold p-4">Hostel Block Name</div>
+              </div>
+              <div className="w-full sm:w-4/5 flex">
+                <div className="w-full p-4">
+                  <InputDemo
+                    type="blockName"
+                    name="hostelBlockName"
+                    value={formData.hostelBlockName}
+                    handleChange={handleInputChange}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-wrap p-2">
+              <div className="w-full sm:w-1/5">
+                <div className="text-bold p-4">Hostel Room Number</div>
+              </div>
+              <div className="w-full sm:w-4/5 flex">
+                <div className="w-full p-4">
+                  <InputDemo
+                    type="roomNumber"
+                    name="hostelRoomNumber"
+                    value={formData.hostelRoomNumber}
+                    handleChange={handleInputChange}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-wrap p-2">
+              <div className="w-full sm:w-1/5">
+                <div className="text-bold p-4">Registration Number</div>
+              </div>
+              <div className="w-full sm:w-4/5 flex">
+                <div className="w-full p-4">
+                  <InputDemo
+                    type="registrationNumber"
+                    name="registrationNumber"
+                    value={formData.registrationNumber}
+                    handleChange={handleInputChange}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-wrap p-2">
+              <div className="w-full sm:w-1/5">
+                <div className="text-bold p-4">Description(Max 2000 char)</div>
+              </div>
+              <div className="w-full sm:w-4/5 flex">
+                <div className="w-full p-4">
+                  <Textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-wrap p-2">
+              <div className="w-full sm:w-1/5">
+                <div className="text-bold p-4">Attach a file(if any)</div>
+              </div>
+              <div className="w-full sm:w-4/5 flex">
+                <div className="w-full p-4">
+                  <label
+                    htmlFor="file-upload"
+                    className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >
+                    Add File
+                  </label>
+                  <input
+                    id="file-upload"
+                    type="file"
+                    className="hidden"
+                    accept=".pdf, image/*"
+                    onChange={handleFileChange}
+                  />
+                </div>
+              </div>
+            </div>
             <div className="flex flex-wrap p-2">
               <div className="w-full sm:w-1/5"></div>
               <div className="w-full sm:w-4/5 flex">
