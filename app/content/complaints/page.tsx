@@ -43,7 +43,7 @@ const page = () => {
             </div>
             <div className="flex flex-col sm:flex-row">
               <div className="w-full sm:w-3/5 border border-stone-300 mb-3 sm:mb-0 py-2 px-3 mt-3 sm:mt-0 ">
-                Create ticket for Found
+                Create Ticket for Lost
               </div>
               <div className="w-full sm:w-3/4 p-3 border border-stone-300">
                 <Link href="/content/complaints/LostandFound">

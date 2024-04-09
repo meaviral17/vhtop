@@ -1,5 +1,5 @@
-"use client"
-import React, { useState, ChangeEvent, FormEvent } from "react";
+"use client";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import AppbarLogin from "@/components/Appbar/AppbarLogin";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,6 +13,7 @@ interface FormData {
   subcategory: string;
   hostelBlockName: string;
   hostelRoomNumber: string;
+  registrationNumber: string;
   description: string;
   file: File | null;
 }
@@ -35,6 +36,8 @@ function InputDemo({
     placeholderText = "Enter Hostel Block Name";
   } else if (type === "roomNumber") {
     placeholderText = "Enter Room Number";
+  } else if (type === "registrationNumber") {
+    placeholderText = "Enter Registration Number";
   }
 
   return (
@@ -59,14 +62,22 @@ const Page: React.FC = () => {
     "ID Card": ["Student ID", "Staff ID"],
   };
 
-  const [formData, setFormData] = useState<FormData>({
-    category: "",
-    subcategory: "",
-    hostelBlockName: "",
-    hostelRoomNumber: "",
-    description: "",
-    file: null,
+  const [formData, setFormData] = useState<FormData>(() => {
+    const savedFormData = localStorage.getItem("formData");
+    return savedFormData
+      ? JSON.parse(savedFormData)
+      : {
+          category: "",
+          subcategory: "",
+          hostelBlockName: "",
+          hostelRoomNumber: "",
+          registrationNumber: "",
+          description: "",
+          file: null,
+        };
   });
+
+  const [complaints, setComplaints] = useState<FormData[]>([]);
 
   const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setFormData({ ...formData, category: event.target.value, subcategory: "" });
@@ -91,17 +102,61 @@ const Page: React.FC = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log(formData);
 
-    setFormData({
-      category: "",
-      subcategory: "",
-      hostelBlockName: "",
-      hostelRoomNumber: "",
-      description: "",
-      file: null,
-    });
+    if (
+      formData.category &&
+      formData.subcategory &&
+      formData.hostelBlockName &&
+      formData.hostelRoomNumber &&
+      formData.registrationNumber &&
+      formData.description
+    ) {
+      // Store the current formData in an array of complaints
+      setComplaints([...complaints, formData]);
+
+      // Storing formData in localStorage
+      localStorage.setItem("formData", JSON.stringify(formData));
+
+      // Storing complaints array in localStorage
+      localStorage.setItem("complaints", JSON.stringify(complaints));
+
+      // Resetting formData state
+      setFormData({
+        category: "",
+        subcategory: "",
+        hostelBlockName: "",
+        hostelRoomNumber: "",
+        registrationNumber: "",
+        description: "",
+        file: null,
+      });
+
+      // Log the complaints array
+      console.log("Complaints array:", complaints);
+    } else {
+      alert("Please fill out all required fields.");
+    }
   };
+
+  useEffect(() => {
+    const savedFormData = localStorage.getItem("formData");
+    if (savedFormData) {
+      setFormData(JSON.parse(savedFormData));
+    }
+
+    const savedComplaints = localStorage.getItem("complaints");
+    if (savedComplaints) {
+      setComplaints(JSON.parse(savedComplaints));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save formData to localStorage
+    localStorage.setItem("formData", JSON.stringify(formData));
+
+    // Save complaints array to localStorage
+    localStorage.setItem("complaints", JSON.stringify(complaints));
+  }, [formData, complaints]);
 
   return (
     <div>
@@ -187,6 +242,21 @@ const Page: React.FC = () => {
                     type="roomNumber"
                     name="hostelRoomNumber"
                     value={formData.hostelRoomNumber}
+                    handleChange={handleInputChange}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-wrap p-2">
+              <div className="w-full sm:w-1/5">
+                <div className="text-bold p-4">Registration Number</div>
+              </div>
+              <div className="w-full sm:w-4/5 flex">
+                <div className="w-full p-4">
+                  <InputDemo
+                    type="registrationNumber"
+                    name="registrationNumber"
+                    value={formData.registrationNumber}
                     handleChange={handleInputChange}
                   />
                 </div>
