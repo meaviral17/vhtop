@@ -8,6 +8,8 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import vitclogo from "@/public/vitclogo.png";
 import storeXeroxRequest from "@/app/Hooks/storeXeroxrequest";
+import AppbarLogin from "@/components/Appbar/AppbarLogin";
+import Sidebar from "@/components/Sidebar/Sidebar";
 
 interface XeroxRequest {
   regNumber: string;
@@ -107,8 +109,8 @@ const XeroxService: React.FC = () => {
 
   return (
     <div>
-      <AppbarAdmin />
-      <AdminSidebar />
+      <AppbarLogin />
+      <Sidebar />
       <div className="flex flex-col sm:ml-12 ml-3">
         <h2 className="text-primary text-4xl font-medium m-4">Xerox Service</h2>
         {error && <div className="text-red-600">{error}</div>}

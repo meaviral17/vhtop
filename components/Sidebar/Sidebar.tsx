@@ -4,9 +4,11 @@ import calling from "@/assets/calling.png";
 import chatbot from "@/assets/chatbot.png";
 import studyHub from "@/assets/studyHub.png";
 import food from "@/assets/food.png";
-import sports from "@/assets/sports.png";
+import photocopy from "@/assets/photocopy.png";
 import carsharing from "@/assets/car-sharing.png";
 import complaints from "@/assets/complaints.png";
+import ads from "@/assets/ads.png";
+import nightmess from "@/assets/nightmess.png";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -29,9 +31,24 @@ const links = [
     alt: "contacts",
     tooltip: "Contacts",
   },
-  { href: "/content/food-park", src: food, alt: "Food Park", tooltip: "Food Park" },
-  { href: "/content/laundry", src: sports, alt: "laundary", tooltip: "Laundry" },
-  { href: "/content/night-mess", src: food, alt: "Night Mess", tooltip: "Night Mess" },
+  {
+    href: "/content/food-park",
+    src: food,
+    alt: "Food Park",
+    tooltip: "Food Park",
+  },
+  // {
+  //   href: "/content/laundry",
+  //   src: sports,
+  //   alt: "laundary",
+  //   tooltip: "Laundry",
+  // },
+  {
+    href: "/content/night-mess",
+    src: nightmess,
+    alt: "Night Mess",
+    tooltip: "Night Mess",
+  },
   {
     href: "/content/study-hub",
     src: studyHub,
@@ -45,6 +62,13 @@ const links = [
     tooltip: "VShare",
   },
   { href: "/content/v-chat", src: chatbot, alt: "vchat", tooltip: "VChat" },
+  { href: "/content/ads", src: ads, alt: "ads", tooltip: "Advertisement" },
+  {
+    href: "/content/photocopy",
+    src: photocopy,
+    alt: "photocopy",
+    tooltip: "PhotoCopy",
+  },
 ];
 const Sidebar = () => {
   return (

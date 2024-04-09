@@ -45,7 +45,7 @@ const links = [
 ];
 const AdminSidebar = () => {
   return (
-    <div className=" items-center h-auto w-8 absolute left-0 flex flex-col p-2 gap-6">
+    <div className=" items-center h-auto  w-10 absolute left-0 flex flex-col p-2 gap-6">
       <TooltipProvider delayDuration={10}>
         {links.map(({ href, src, alt, tooltip }, index) => (
           <Link key={index} href={href}>
