@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import AppbarAdmin from "@/components/Appbar/AppbarAdmin";
-import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Sidebar from "@/components/Sidebar/Sidebar";
 
 interface Person {
   name: string;
@@ -118,7 +118,7 @@ const Page: React.FC = () => {
   return (
     <div>
       <AppbarAdmin />
-      <AdminSidebar />
+      <Sidebar />
       <div className="flex flex-col sm:ml-12 ml-3">
         <div className="text-primary text-4xl font-medium m-4">Chota-Dhobi</div>
         <p className="text-gray-500 mx-4 text-xl">
