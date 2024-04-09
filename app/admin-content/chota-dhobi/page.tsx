@@ -22,7 +22,7 @@ const Page: React.FC = () => {
     []
   );
 
-  // Dummy list of people with registration numbers and laundry days
+  
   const people: Person[] = [
     {
       name: "John Doe",
