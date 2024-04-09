@@ -70,9 +70,6 @@ const XeroxService: React.FC = () => {
     setSearchInput(event.target.value);
   };
 
-  const waitingOrdersAB1 = requests.filter((request) => request.location === "AB1" && !request.collected).length;
-  const waitingOrdersAB2 = requests.filter((request) => request.location === "AB2" && !request.collected).length;
-
   return (
     <div>
       <AppbarAdmin />
