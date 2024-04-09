@@ -23,7 +23,8 @@ import { Button } from "../ui/button";
 import vitclogo from "@/public/vitclogo.png";
 interface FoodItem {
   title: string;
-  price: string; // StaticImageData type for Next.js Image component
+  price: string;
+  image: StaticImageData; // StaticImageData type for Next.js Image component
 }
 
 interface FoodItemsProps {
@@ -131,6 +132,13 @@ const FoodItems: React.FC<FoodItemsProps> = ({ title, foodItems }) => {
                   <CardDescription>{item.price}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex items-center justify-center">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    height={150}
+                    width={150}
+                    className="rounded-md"
+                  />
                 </CardContent>
                 <CardFooter className="flex justify-between"></CardFooter>
               </Card>
@@ -142,6 +150,13 @@ const FoodItems: React.FC<FoodItemsProps> = ({ title, foodItems }) => {
             <DialogHeader>
               <DialogTitle>{selectedItem.title}</DialogTitle>
               <DialogDescription>{selectedItem.price}</DialogDescription>
+              <Image
+                src={selectedItem.image}
+                alt={selectedItem.title}
+                height={150}
+                width={150}
+                className="rounded-md"
+              />
             </DialogHeader>
             <DialogFooter className="sm:justify-start items-center">
               <Button variant="outline" size="icon" onClick={handleDecrement}>
