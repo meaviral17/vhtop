@@ -62,18 +62,30 @@ const Page: React.FC = () => {
   };
 
   const [formData, setFormData] = useState<FormData>(() => {
-    const savedFormData = localStorage.getItem("formData");
-    return savedFormData
-      ? JSON.parse(savedFormData)
-      : {
-          category: "",
-          subcategory: "",
-          hostelBlockName: "",
-          hostelRoomNumber: "",
-          registrationNumber: "",
-          description: "",
-          file: null,
-        };
+    if (typeof window !== "undefined") {
+      const savedFormData = localStorage.getItem("formData");
+      return savedFormData
+        ? JSON.parse(savedFormData)
+        : {
+            category: "",
+            subcategory: "",
+            hostelBlockName: "",
+            hostelRoomNumber: "",
+            registrationNumber: "",
+            description: "",
+            file: null,
+          };
+    } else {
+      return {
+        category: "",
+        subcategory: "",
+        hostelBlockName: "",
+        hostelRoomNumber: "",
+        registrationNumber: "",
+        description: "",
+        file: null,
+      };
+    }
   });
 
   const [complaints, setComplaints] = useState<FormData[]>([]);
@@ -114,7 +126,7 @@ const Page: React.FC = () => {
       setComplaints([...complaints, formData]);
 
       // Check if localStorage is available before using it
-      if (typeof localStorage !== "undefined") {
+      if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
         // Storing formData in localStorage
         localStorage.setItem("formData", JSON.stringify(formData));
 
@@ -141,20 +153,21 @@ const Page: React.FC = () => {
   };
 
   useEffect(() => {
-    const savedFormData = localStorage.getItem("formData");
-    if (savedFormData) {
-      setFormData(JSON.parse(savedFormData));
-    }
+    if (typeof window !== "undefined") {
+      const savedFormData = localStorage.getItem("formData");
+      if (savedFormData) {
+        setFormData(JSON.parse(savedFormData));
+      }
 
-    const savedComplaints = localStorage.getItem("complaints");
-    if (savedComplaints) {
-      setComplaints(JSON.parse(savedComplaints));
+      const savedComplaints = localStorage.getItem("complaints");
+      if (savedComplaints) {
+        setComplaints(JSON.parse(savedComplaints));
+      }
     }
   }, []);
 
   useEffect(() => {
-    // Check if localStorage is available before using it
-    if (typeof localStorage !== "undefined") {
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
       // Save formData to localStorage
       localStorage.setItem("formData", JSON.stringify(formData));
 
